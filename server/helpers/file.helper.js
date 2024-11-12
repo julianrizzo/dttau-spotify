@@ -1,29 +1,29 @@
 const fs = require('fs');
 
-function write_token_file(token_type, token) {
+function write_file(file_name, content) {
 
-    console.log("Writing... " + token_type);
-    console.log("with value... " + token);
+    console.log("Writing... " + file_name);
+    console.log("with value... " + content);
 
-    file_location = './local_tokens/' + token_type + '.txt';
+    file_location = './local_tokens/' + file_name + '.txt';
 
-    fs.writeFile(file_location, token, { flag: 'w' }, err => {
+    fs.writeFile(file_location, content, { flag: 'w' }, err => {
         if (err) {
             console.error(err);
         } else {
-            console.log('A new "' + token_type + '" has been saved to file...');
+            console.log('A new "' + file_name + '" has been saved to file...');
         }
     });
 }
 
-function read_token_file(token_type) {
+function read_file(file_name) {
 
-    file_location = './local_tokens/' + token_type + '.txt';
+    file_location = './local_tokens/' + file_name + '.txt';
 
     try {
         return fs.readFileSync(file_location, 'utf-8');
     } catch (error) {
-        console.error(error);
+        console.log("No file found for: " + file_name);
         return('');
     }
 
@@ -40,6 +40,6 @@ function read_token_file(token_type) {
 }
 
 module.exports = {
-    write_token_file,
-    read_token_file
+    write_file,
+    read_file
   };
