@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-const { getPlaylists, getDevices } = require('./controllers/data.controller');
-const { resumeMusic, pauseMusic } = require('./controllers/control.controller');
+const { getUserPlaylists, getSpotifyPlaylists, getDevices } = require('./controllers/data.controller');
+const { resumeMusic, pauseMusic, startMusic } = require('./controllers/control.controller');
 const { getMemoryItems } = require('./controllers/memory.controller');
 const { newLogin, handleCallback, refreshToken } = require('./controllers/auth.controller');
 const { initialiseApp } = require('./helpers/initialise.helper');
@@ -29,11 +29,13 @@ app.get('/memory', getMemoryItems);
 
 
 // API ENDPOINTS - DATA
-app.get('/data/playlists', getPlaylists);
+app.get('/data/playlists', getUserPlaylists);
+app.get('/data/SpotifyPlaylists', getSpotifyPlaylists);
 app.get('/data/devices', getDevices);
 
 
 // API ENDPOINTS - CONTROL
+app.get('/control/start', startMusic);
 app.get('/control/resume', resumeMusic);
 app.get('/control/pause', pauseMusic);
 app.get('/control/play', (req, res) => res.send('Endpoint not yet available!'));

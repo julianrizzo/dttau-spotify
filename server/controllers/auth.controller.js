@@ -3,8 +3,7 @@ const crypto = require('crypto');
 const querystring = require('querystring');
 const dotenv = require('dotenv');
 
-const { getUserID, setUserID, getAccessToken, setAccessToken, getRefreshToken, setRefreshToken } = require('../helpers/memory.helper');
-const { write_file } = require('../helpers/file.helper');
+const { setUserID, setAccessToken, getRefreshToken, setRefreshToken } = require('../helpers/memory.helper');
 
 const generateRandomString = (length) => {
     return crypto
@@ -40,7 +39,6 @@ const newLogin = async (req, res) => {
 
 const handleCallback = async (req, res) => {
 
-
   // your application requests refresh and access tokens
   // after checking the state parameter
 
@@ -74,14 +72,9 @@ const handleCallback = async (req, res) => {
 
         var access_token = body.access_token,
           refresh_token = body.refresh_token;
-
-        // global_access_token = access_token;
-        // global_refresh_token = refresh_token;
+        
         setAccessToken(access_token);
         setRefreshToken(refresh_token);
-
-        write_file('global_access_token', access_token);
-        write_file('global_refresh_token', refresh_token);
 
         var options = {
           url: 'https://api.spotify.com/v1/me',
@@ -93,14 +86,10 @@ const handleCallback = async (req, res) => {
         request.get(options, function (error, response, body) {
           console.log(body);
           var user_id = body.id;
-          // global_user_id = user_id;
           setUserID(user_id);
-
-          write_file('global_user_id', user_id);
         });
 
         // we can also pass the token to the browser to make requests from there
-        // res.redirect('/nav.html')
         res.redirect('/#' +
           querystring.stringify({
             access_token: access_token,
@@ -143,16 +132,7 @@ const refreshToken = async (req, res) => {
       // refresh_token = body.refresh_token;
 
       setAccessToken(access_token);
-      // global_access_token = access_token;
-      // global_refresh_token = refresh_token;
 
-      console.log(body);
-
-      console.log("New access token:" + body.access_token);
-
-
-      write_file('global_access_token', access_token);
-      // write_file('global_refresh_token', refresh_token);
       res.send({
         'access_token': access_token,
         'refresh_token': getRefreshToken()
