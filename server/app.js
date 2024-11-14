@@ -3,10 +3,12 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const { getUserPlaylists, getSpotifyPlaylists, getDevices } = require('./controllers/data.controller');
-const { resumeMusic, pauseMusic, startMusic } = require('./controllers/control.controller');
+const { resumeMusic, pauseMusic } = require('./controllers/control.controller');
+const { startMusic } = require('./controllers/flow.controller');
 const { getMemoryItems } = require('./controllers/memory.controller');
 const { newLogin, handleCallback, refreshToken } = require('./controllers/auth.controller');
 const { initialiseApp } = require('./helpers/initialise.helper');
+const { checkTokenValidity } = require('./helpers/validity.helper');
 
 
 initialiseApp();

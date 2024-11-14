@@ -17,7 +17,6 @@ const getUserPlaylists = async (req, res) => {
     console.log(playlists);
 
     res.send(playlists);
-    // return playlists;
   });
 };
 
@@ -30,20 +29,14 @@ const getSpotifyPlaylists = async (req, res) => {
       json: true
     };
 
-    // console.log('starting spot play:');
-
-    //  
     request.get(options, function (error, response, body) {
-      // console.log('request made:');
 
       const playlists = body.items
         .filter(item => item.owner.display_name === "Spotify")
         .map(item => ({ name: item.name, id: item.id, owner: item.owner }));
-      // console.log(playlists);
 
       resolve(playlists);
-      // res.send(playlists);
-      // return playlists;
+      res.send(playlists);
     });
   });
 };
@@ -61,7 +54,6 @@ const getDevices = async (req, res) => {
     console.log(body);
 
     const devices = body.devices;
-    // .map(item => item.name);
     console.log(devices);
 
     res.json(devices);
