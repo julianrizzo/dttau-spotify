@@ -1,10 +1,11 @@
 // Handles the read and write operations for local tokens IN MEMORY
 
-const { write_file } = require('../helpers/file.helper');
+const { write_file } = require('./file.helper');
 
 var global_access_token;
 var global_refresh_token;
 var global_user_id;
+var global_device_id;
 
 function getAccessToken() {
     return global_access_token;
@@ -39,11 +40,24 @@ function setUserID(new_user_id, write_flag = true) {
     }
 }
 
+function getDeviceID() {
+    return global_device_id;
+}
+
+function setDeviceID(new_device_id, write_flag = true) {
+    global_device_id = new_device_id;
+    if(write_flag) {
+        write_file('global_device_id', new_device_id);
+    }
+}
+
 module.exports = {
     getAccessToken,
     setAccessToken,
     getRefreshToken,
     setRefreshToken,
     getUserID,
-    setUserID
+    setUserID,
+    getDeviceID,
+    setDeviceID
 }
