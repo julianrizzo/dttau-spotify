@@ -3,7 +3,7 @@ then
     echo "The server is running..."
 else 
     echo "The server is currently unreachable"
-    node ../server/app.js
+    deno run -A ../server/app.ts
 fi
 
 curl http://localhost:8888/refresh_token

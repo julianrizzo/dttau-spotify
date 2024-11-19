@@ -11,7 +11,7 @@ The first time the repo is cloned, the following commands will need to be run.
 Install node packages:
 ```
 cd server
-npm install
+deno install
 ```
 
 To create the `.env` file and `local_tokens` directory:
@@ -24,7 +24,7 @@ The secret.env file can then be filled out with the client ID, client secret and
 
 To run the server, run the following from the `server` directory:
 ```
-npm start
+deno run -A app.ts
 ```
 
 The application can then be accessed from `http://localhost:8888`

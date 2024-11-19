@@ -2,7 +2,7 @@ import { Request, Response, Error, Body } from "npm:express";
 import request from 'npm:request';
 import { randomBytes } from 'node:crypto';
 import { stringify } from 'npm:querystring';
-import { config } from 'npm:dotenv';
+import dotenv from 'npm:dotenv';
 import process from "node:process";
 import { Buffer } from "node:buffer";
 
@@ -17,7 +17,7 @@ const generateRandomString = (length: number) => {
 
 const stateKey = 'spotify_auth_state';
 
-config({ path: '/../../secret.env' })
+dotenv.config({ path: import.meta.dirname + '/../../secret.env' })
 
 const client_id: string | undefined = process.env.CLIENT_ID; // your clientId
 const client_secret: string | undefined = process.env.CLIENT_SECRET; // Your secret

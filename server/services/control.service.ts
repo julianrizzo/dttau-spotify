@@ -4,7 +4,7 @@ import { Request, Response, Error } from 'npm:express';
 
 import { getAccessToken, getDeviceID } from '../helpers/memory.helper.ts';
 
-dotenv.config({ path: '/../../secret.env' })
+dotenv.config({ path: import.meta.dirname + '/../../secret.env' })
 
 const playPlaylist = async (_req: Request, res: Response, playlistID: string, deviceID: string) => {
     try {
