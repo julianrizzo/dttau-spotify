@@ -1,5 +1,5 @@
-const { setAccessToken, setRefreshToken, setUserID, setDeviceID } = require('./memory.helper');
-const { read_file } = require('./file.helper');
+import { setAccessToken, setRefreshToken, setUserID, setDeviceID } from './memory.helper.ts';
+import { read_file } from './file.helper.ts';
 
 // Saves the token files into memory to be accessed while the app is running
 function initialiseApp() {
@@ -9,6 +9,6 @@ function initialiseApp() {
     setDeviceID(read_file('global_device_id'), false);
 };
 
-module.exports = {
+export {
     initialiseApp
 }

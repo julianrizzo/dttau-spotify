@@ -1,10 +1,10 @@
 // Handles the read and write operations for local tokens IN LOCAL_TOKENS DIRECTORY
 
-const fs = require('fs');
+import fs from 'node:fs';
 
-function write_file(file_name, content) {
+function write_file(file_name: string, content: string) {
 
-    file_location = './local_tokens/' + file_name + '.txt';
+    const file_location = './local_tokens/' + file_name + '.txt';
 
     fs.writeFile(file_location, content, { flag: 'w' }, err => {
         if (err) {
@@ -15,19 +15,19 @@ function write_file(file_name, content) {
     });
 }
 
-function read_file(file_name) {
+function read_file(file_name: string) {
 
-    file_location = './local_tokens/' + file_name + '.txt';
+    const file_location = './local_tokens/' + file_name + '.txt';
 
     try {
         return fs.readFileSync(file_location, 'utf-8');
-    } catch (error) {
+    } catch {
         console.log("No file found for: " + file_name);
         return('');
     }
 }
 
-module.exports = {
+export {
     write_file,
     read_file
   };

@@ -1,0 +1,11 @@
+{
+	"tasks": {
+		"dev": "deno run --watch app.js"
+	},
+	"imports": {
+		"axios": "npm:axios@^1.7.7",
+		"cookie-parser": "npm:cookie-parser@^1.4.7",
+		"cors": "npm:cors@^2.8.5",
+		"express": "npm:express@4.21.1"
+	}
+}

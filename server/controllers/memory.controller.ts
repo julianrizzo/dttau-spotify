@@ -1,6 +1,8 @@
-const { getUserID, getAccessToken, getRefreshToken, getDeviceID } = require('../helpers/memory.helper');
+import { Request, Response } from "npm:express";
 
-const getMemoryItems = async (req, res) => {
+import { getUserID, getAccessToken, getRefreshToken, getDeviceID } from '../helpers/memory.helper.ts';
+
+const getMemoryItems = (_req: Request, res: Response) => {
     res.json({
         'Global Access Token': getAccessToken(),
         'Global Refresh Token': getRefreshToken(),
@@ -9,6 +11,6 @@ const getMemoryItems = async (req, res) => {
     });
 };
 
-module.exports = {
+export {
     getMemoryItems
 }

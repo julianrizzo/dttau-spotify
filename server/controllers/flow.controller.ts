@@ -1,8 +1,10 @@
-const { setDeviceID } = require('../helpers/memory.helper');
-const { getSpotifyPlaylists, getDevices } = require('../services/data.service');
-const { playPlaylist } = require('../services/control.service');
+import { Request, Response } from "npm:express";
 
-const startMusic = async (req, res) => {
+import { setDeviceID } from '../helpers/memory.helper.ts';
+import { getSpotifyPlaylists, getDevices } from '../services/data.service.ts';
+import { playPlaylist } from '../services/control.service.ts';
+
+const startMusic = async (req: Request, res: Response) => {
     try {
         const devices = await getDevices(req, res);
         const playlists = await getSpotifyPlaylists(req, res);
@@ -22,15 +24,18 @@ const startMusic = async (req, res) => {
 
         const response = await playPlaylist(req, res, select.id, devices[0].id);
 
-        console.log(response.status);
-        // Send the final response
-        if(response.status == 204) {
-            res.send(`Playing "${select.name}" on device ${devices[0].name}`);
-        } else if (response.status == 401) {
-            res.send("You need a new access token");
-        } else {
-            res.send("Something went wrong :(");
-        }
+        if(response){
+            console.log(response.status);
+            // Send the final response
+            if(response.status == 204) {
+                res.send(`Playing "${select.name}" on device ${devices[0].name}`);
+            } else if (response.status == 401) {
+                res.send("You need a new access token");
+            } else {
+                res.send("Something went wrong :(");
+            }
+        };
+        
     } catch (error) {
         console.error("Error in startMusic:", error);
         res.status(500).send({ error: "An error occurred while starting music" });
@@ -38,6 +43,6 @@ const startMusic = async (req, res) => {
 };
 
 
-module.exports = {
+export {
     startMusic
 }
